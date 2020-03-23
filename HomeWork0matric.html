@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matic Change</title>
+</head>
+<body>
+<script>
+    function minesweeperNumbers(board) {
+        function count(y,i,j){
+            let sum=0;
+            if (y === 1){
+                return 9;}
+            if(i-1 >= 0 && j-1 >= 0){
+                sum += board[i-1][j-1]}
+            if(i - 1 >= 0 ) {
+                sum += board[i - 1][j]}
+            if(i-1 >= 0 && j+1 < board[i].length){
+                sum += board[i-1][j+1]}
+            if(j-1 >= 0){
+                sum += board[i][j-1]}
+            if(j+1 < board[i].length ){
+                sum +=  board[i][j+1]}
+            if(i+1 < board.length && j-1>=0){
+                sum +=  board[i+1][j-1]}
+            if(i+1 < board.length){
+                sum +=  board[i+1][j]}
+            if(i+1 < board.length && j+1 < board[i].length){
+                sum +=  board[i+1][j+1]}
+            return sum;
+        }
+        newboard = board.map((x,i) => x.map((y,j) => y = count(y,i,j)));
+        console.log(newboard)
+    }
+    minesweeperNumbers([
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 1, 0, 1],
+        [1, 1, 0, 0],
+    ]);
+    minesweeperNumbers([
+        [1, 1, 1],
+        [1, 0, 1],
+        [1, 1, 1]
+    ]);
+    minesweeperNumbers([
+        [1, 0, 0, 0, 0, 0, 1, 0],
+        [1, 0, 1, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 0],
+        [0, 1, 0, 1, 0, 0, 0, 1],
+        [0, 0, 0, 1, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 0, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 1, 0, 1],
+    ]);
+</script>
+</body>
+</html>

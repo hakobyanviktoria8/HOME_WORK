@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("_____________________ex1__________________________");
+
+    function imgurUrlParser(str) {
+        let obj={};
+        str=str.split("/");
+        obj.id=str[str.length-1].includes(".") ? str[str.length-1].split(".")[0] : str[str.length-1];
+        str.length===4 ? obj.type="image" : str[3] === "a" ? obj.type= "album" : obj.type=str[3];
+        console.log(obj)
+    }
+    imgurUrlParser("http://imgur.com/a/cjh4E");
+    imgurUrlParser("http://imgur.com/gallery/59npG");
+    imgurUrlParser("http://i.imgur.com/altd8Ld.png");
+    imgurUrlParser("http://imgur.com/OzZUNMM");
+    console.log("_________ex2_____________________________________");
+
+    function shopping(money, price) {
+        let change = money - Object.values(price).reduce((a,b)=>a+b);
+        console.log(change > 0 ? change : "Insufficient account")
+    }
+    shopping(1000, {
+        milk: 100,
+        juice: 200,
+        fruits : 500
+    });
+    shopping(230,{
+        milk: 100,
+        juice: 250
+    });
+    console.log("_________ex2_____________________________________");
+
+
+    function vendingMachine(products, money, number) {
+        products = [
+            { number: 1, price: 100, name: 'Orange juice' },
+            { number: 2, price: 200, name: 'Soda' },
+            { number: 3, price: 150, name: 'Chocolate snack' },
+            { number: 4, price: 250, name: 'Cookies' },
+            { number: 5, price: 180, name: 'Gummy bears' },
+            { number: 7, price: 120, name: 'Crackers' },
+            { number: 8, price: 220, name: 'Potato chips' },
+            { number: 9, price: 80,  name: 'Small snack' },
+        ];
+        let coins = [500,200,100,50,20,10], result = [], obj = {};
+        let num = products.map(x => x.number); //[1, 2, 3, 4, 5, 7, 8, 9]
+
+        if (num.indexOf(number) === -1) {
+            console.log("Enter a valid product number")
+        } else {
+            let change = money - products[num.indexOf(number)].price;
+            if(change < 0){
+                console.log("Not enough money for this product")
+            } else {
+                obj.product = products[num.indexOf(number)].name;
+                function fact(change) {
+                    coins = coins.filter(x => x <= change);//[200,100,50,20,10]
+                    change = change - coins[0];
+                    result.push(coins[0]);
+                    fact(change)
+                }
+                // while (change > 0){
+                //     coins = coins.filter(x => x <= change);
+                //     change = change - coins[0];
+                //     result.push(coins[0])
+                // }
+                obj.change = result ;
+                console.log(obj)
+            }
+        }
+    }
+    vendingMachine(products=undefined ,200,7);
+    vendingMachine(products=undefined ,520,8);
+    vendingMachine(products=undefined, 500, 0);  //Enter a valid product number
+    vendingMachine(products=undefined, 90, 1) ; //Not enough money for this product
+
+    //recursive 2ex
+    function vendingMachine(products, money, number) {
+        products = [
+            { number: 1, price: 100, name: 'Orange juice' },
+            { number: 2, price: 200, name: 'Soda' },
+            { number: 3, price: 150, name: 'Chocolate snack' },
+            { number: 4, price: 250, name: 'Cookies' },
+            { number: 5, price: 180, name: 'Gummy bears' },
+            { number: 7, price: 120, name: 'Crackers' },
+            { number: 8, price: 220, name: 'Potato chips' },
+            { number: 9, price: 80,  name: 'Small snack' },
+        ];
+        let coins = [500,200,100,50,20,10], result = [], obj = {};
+        let num = products.map(x => x.number); //[1, 2, 3, 4, 5, 7, 8, 9]
+
+        if (num.indexOf(number) === -1) {
+            console.log("Enter a valid product number")
+        } else {
+            let change = money - products[num.indexOf(number)].price;
+            if(change < 0){
+                console.log("Not enough money for this product")
+            } else {
+                obj.product = products[num.indexOf(number)].name;
+                function factorial(change) {
+                    coins = coins.filter(x => x <= change);//[200,100,50,20,10]
+                    if(change ){
+                        result.push(coins[0]);
+                        return factorial(change - coins[0]);
+                    } else{
+                        return 0
+                    }
+                }
+                factorial(change);
+                obj.change = result ;
+                console.log(obj)
+            }
+        }
+    }
+    vendingMachine(products=undefined ,200,7);
+    vendingMachine(products=undefined ,520,8);
+    vendingMachine(products=undefined, 500, 0);  //Enter a valid product number
+    vendingMachine(products=undefined, 90, 1) ; //Not enough money for this product
+
+
+    console.log("_____________________ex3__________________________");
+
+    function getTotalPrice(groceries) {
+        let result = +groceries.map(x=>+(x.quantity*x.price)).reduce((a,b)=>a+b).toFixed(1);
+        console.log(result)
+    }
+    getTotalPrice([{ product: "Milk", quantity: 1, price: 1.50 }]);
+    getTotalPrice([
+        { product: "Milk", quantity: 1, price: 1.50 },
+        { product: "Cereals", quantity: 1, price: 2.50 }
+    ]);
+    getTotalPrice([{ product: "Milk", quantity: 3, price: 1.50 }]);
+    getTotalPrice([
+        { product: "Milk", quantity: 1, price: 1.50 },
+        { product: "Eggs", quantity: 12, price: 0.10 },
+        { product: "Bread", quantity: 2, price: 1.60 },
+        { product: "Cheese", quantity: 1, price: 4.50 }
+    ]);
+    getTotalPrice([
+        { product: "Chocolate", quantity: 1, price: 0.10 },
+        { product: "Lollipop", quantity: 1, price: 0.20 }
+    ]);
+
+    console.log("_____________________ex4__________________________");
+    function timeSum(arr) {
+        let newArr=[0,0,0];
+        for (let i=0;i<arr.length;i++){
+            arr[i]=arr[i].split(":");
+            for(let j=0;j<arr[i].length;j++){
+                newArr[j]+= +arr[i][j];
+            }
+            if (newArr[1]>60){
+                newArr[1]-=60;
+                newArr[0]++
+            }
+            if (newArr[2]>60){
+                newArr[2]-=60;
+                newArr[1]++
+            }
+        }console.log(newArr)
+    }
+    timeSum(["1:23:45"]);
+    timeSum(["1:03:45", "1:23:05"]);
+    timeSum(["5:39:42", "10:02:08", "8:26:33"]);
+
+    console.log("_____________________ex5__________________________");
+    function hackerSpeak(str){
+        str=str.replace(/a/g,4).replace(/e/g,3).replace(/i/g,1).replace(/o/g,0).replace(/s/g,5);
+        console.log(str)
+    }
+    hackerSpeak("javascript is cool");
+    hackerSpeak("programming is fun");
+    hackerSpeak("become a coder");
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //ex 1
+    function removeEmptyArrays(arr) {
+        return arr.flat()
+    }
+
+//    ex2
+    function minusOne(arr) {
+        return arr.slice(0,arr.length-1)
+    }
+//    ex2
+    function minusOne1(arr) {
+        let newArr=arr.slice(0);
+        newArr.pop();
+        return newArr
+    }
+
+//    ex3
+    function getCase(str) {
+        return str.toUpperCase() === str ? "upper" : str.toLowerCase() === str ?
+            "lower" : "mixed"
+    }
+
+//    ex4
+    String.prototype.replace = function(vowel) {
+        return this.replace(/[a|e|u|i|o]/g ,vowel)
+    };
+
+//    ex5
+    function mysteryFunc(num) {
+        return num.toString().split("").reduce((a,b)=>a*b)
+    }
+
+//    ex6
+    function getExtension(arr) {
+        return arr.map(x=>x.split(".")[1])
+    }
+//    ex6 hin lucum,
+    function getExtension1(arr) {
+        var newArr=[];
+        for(var i=0; i<arr.length; i++){
+            var start= arr[i].split("");
+            start=start.indexOf(".");
+            var end=arr[i].length;
+            var piece=arr[i].slice(start+1,end);
+            newArr.push(piece)
+        }
+        return newArr
+    }
+</script>
+</body>
+</html>

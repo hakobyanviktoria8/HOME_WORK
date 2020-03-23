@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("___________________________1__________________________________");
+    //ex1
+    function oddEven(arr){
+        let oddArr=[], evenArr=[];
+        arr = arr.map(x => x%2===0 ? oddArr.push(x) : evenArr.push(x));
+        console.log(evenArr, oddArr)
+    }
+    oddEven([45, 12, 3, 6, 17, 0]);
+    oddEven([1, 3, 5, 9]);
+
+    console.log("___________________________2__________________________________");
+    //ex2
+    function mathOper(arr){
+        let arrSum = arr.reduce((x,y)=>x+y);
+        let arrMult = arr.reduce((x,y)=>x*y);
+        let arrDeff  = arr.reduce((x,y)=>x-y);
+        let arrDivis = arr.reduce((x,y)=>x/y);
+        console.log(`Sum is ${arrSum},
+        \nMultiplication is ${arrMult},
+        \nDifference is ${arrDeff},
+        \nDivision  is ${arrDivis}`)
+    }
+    mathOper([45, 12, 3, 6, 17, 10]);
+    mathOper([1, 3, 5, 9]);
+
+    //ex2 another way
+    function sum(arr) {
+        console.log("Sum is " + arr.reduce((x,y)=>x+y))
+    }
+    sum([1, 3, 5, 9]);
+    function mult(arr) {
+        console.log("Multiplication is " + arr.reduce((x,y)=>x*y))
+    }
+    mult([1, 3, 5, 9]);
+    function deff(arr) {
+        console.log("Difference is " + arr.reduce((x,y)=>x/y))
+    }
+    deff([1, 3, 5, 9]);
+    function div(arr) {
+        console.log("Division is " + arr.reduce((x,y)=>x-y))
+    }
+    div([1, 3, 5, 9]);
+
+    console.log("___________________________3__________________________________");
+     //ex3
+    function changeNum(num){
+        num = num.replace(/^\+|\s/g, "");
+        console.log(num.length!==10 || num.includes("+") ? "Bad number": num)
+    }
+    changeNum("455678");
+    changeNum("339 5656888");
+    changeNum("+0008989562");
+    changeNum('45231489562');
+    changeNum('123+2356897452');
+    changeNum('123+235689');
+
+    console.log("___________________________4__________________________________");
+    //ex4
+    function getWord(word,arr){
+        word = word.split("").sort().join("");
+        let newArr=[];
+        for (let i=0; i <  arr.length; i++){
+            if (arr[i].length === word.length && arr[i].split("").sort().join("") === word){
+                newArr.push(arr[i])
+            }
+        }console.log(newArr)
+    }
+    getWord("listen", ["enlists", "google", "inlets", "banana"]);
+    getWord("pencil", ["licnep", "circular", "pupil", "nilcpe", "leppnec"]);
+
+    console.log("___________________________5__________________________________");
+    //ex5
+    function sumNum(str){
+        str = str.replace(/[a-z]/gi," ").trim().replace(/\s+/gm, ",").split(",");
+        console.log(str.reduce((a,b)=>+a+(+b)))
+    }
+    sumNum("FwrtY45KHL120mn10P");
+    sumNum("Wert12lop-12");
+
+    console.log("___________________________6_________________________________");
+    //ex6
+    function replaceWord(str,word){
+        console.log(str.replace(new RegExp(word,"g"), ""))
+    }
+    replaceWord("This is some text.","is");
+    replaceWord("Yes, London. You know: fish, chips, cup ‘o tea, bad food, worse weather","o");
+
+    console.log("___________________________7___8______________________________");
+    //ex7 == ex8
+    function chancgletter(str){
+        str=str.split("");
+        for(let i=0; i<str.length; i+=3){
+            let x=str.splice(i,1);
+            str.splice(i+2,0,x[0])
+        }
+        console.log(str)
+    }
+    chancgletter("dfgjkloyp");
+    chancgletter("aweyoolp");
+    
+    console.log("___________________________9__________________________________");
+    //ex9
+    function wordLength(str) {
+        str = str.split(" ");
+        let str1 = str.map(x => x.length);
+        let maxVal = Math.max(...str1);
+        let ind = str1.lastIndexOf(maxVal);
+        if (str[ind].slice(-1)===","){
+            str[ind]= str[ind].slice(0,-1);
+        }
+        console.log(str[ind])
+    }
+    wordLength("A revolution without dancing is a revolution not worth having.");
+    wordLength("Which would be worse - to live as a monster, or to die as a good man?");
+
+    console.log("___________________________10__________________________________");
+    //ex10
+    function maxNum(arr,num) {
+        let newArr = arr.filter(x => x > num);
+        console.log(newArr.length === 0 ? "Such values do not exist." : newArr)
+    }
+    maxNum([10, 25, 16, -5, 30, 15, 24] , 16);
+    maxNum([1, 1, 2, -3, 0, 8, 4, 0], 9);
+
+    console.log("___________________________11___________________________________");
+    //ex11
+    function largSubString(str) {
+        str=str.split("");
+        let newArr=[],lengthSubStr=[];
+        for (let i=0;i<str.length;i++){
+            if (!newArr.includes(str[i]) || str[i]===" ") {
+                newArr.push(str[i])
+            } else {
+                lengthSubStr.push(newArr);
+                i = str.slice(0,i).lastIndexOf(str[i]);
+                newArr =[];
+            }
+        }
+        let length = lengthSubStr.map(x=>x.filter(y=>y!==" ").length);
+        // console.log(length);
+        let max=length.indexOf(Math.max(...length));
+        let x=lengthSubStr[max];
+        console.log(x.join(""))
+    }
+    largSubString('there are no two words in the english language more harmful than "good job".');  //rmful than "go
+    largSubString('parting your soup is not a miracle, bruce.'); //parting you տրվածը սխալ է [10, 9, 4, 6, 6, 9, 8, 9, 8, 7]
+
+    console.log("__________________________12_______________________________");
+    //ex12
+    function evenDigit(start,end) {
+        let newArr=[];
+        for (let i=start; i<=end; i++){
+            if(i.toString().length > 2 && i%10%2 === 0 && Math.floor(i/10)%10%2===0 &&
+                Math.floor(i/100)%2===0){
+                newArr.push(i)
+            }
+            if (i.toString().length<=2 && i%10%2===0) {
+                if (Math.floor(i/10)%2===0) {
+                    newArr.push(i)
+                }
+            }
+        }
+        console.log(newArr.length!==0 ? newArr : "Such numbers does not exist.")
+    }
+    evenDigit(19,42);
+    evenDigit(99,199);
+    evenDigit(145,289);     //additional
+    console.log("ex12________________________________");
+    //ex12 another way
+    function evenDigit(start,end) {
+        let evenNumbers = range(start, end).filter(x => allDigitseven(x));
+        if (evenNumbers.length === 0) {
+            console.log("Such numbers does not exist.");
+        }else {
+            console.log(evenNumbers);
+        }
+    }
+    function allDigitseven(x) {
+        do {
+            let dig = x % 10;
+            x = Math.floor(x / 10);
+            if (dig%2 !== 0)
+                return false;
+        } while (x);
+        return true;
+    }
+    function range(start, end) {
+        let ans = [];
+        for (let i = start; i <= end; i++) {
+            ans.push(i);
+        }
+        return ans;
+    }
+    evenDigit(19,42);
+    evenDigit(190,242);
+    evenDigit(99,199);
+    
+    //13
+    console.log("__________________________________13_______________________________");
+    function printTens(num) {
+        switch(num) {
+            case 0: return "zero";
+            case 1: return "one";
+            case 2: return "two";
+            case 3: return "three";
+            case 4: return "four";
+            case 5: return "five";
+            case 6: return "six";
+            case 7: return "seven";
+            case 8: return "eight";
+            case 9: return "nine";
+            case 10: return "ten";
+            case 11: return "eleven";
+            case 12: return "twelve";
+            case 13: return "thirteen";
+            case 14: return "fourteen";
+            case 15: return "fifteen";
+            case 16: return "sixteen";
+            case 17: return "seventeen";
+            case 18: return "eightteen";
+            case 19: return "nineteen";
+            case 20: return "twenty";
+            case 30: return "thirty";
+            case 40: return "forty";
+            case 50: return "fifty";
+            case 60: return "sixty";
+            case 70: return "seventy";
+            case 80: return "eighty";
+            case 90: return "ninety";
+            default:  //if there isn't number, divide the number tens and units  34=30+4
+                return printTens(num - num%10) + "-" + printTens(num%10);
+        }
+    }
+    function pronounce(x, i) {
+        if (x === 0) return "";
+        switch (i) {
+            case 0: return printTens(+x) + " houndred ";
+            case 1: return printTens(+x) + " thousand ";
+            case 2: return printTens(+x) + "ty-";
+            case 3: return printTens(+x) + " houndred ";
+        }
+    }
+    function printDigitName(n){
+        if (n.toString().length <= 2){     //if n.length = 2 call printTens() 0-99
+            console.log(printTens(n))
+        } else {                           //n=345 => n%100=45
+            let tensStr = printTens(n % 100);
+            //n=23456 =>  Math.round(n / 100)-> 234 ->["4","3","2"]
+            let arr = (Math.round(n / 100)).toString().split("").reverse();
+            //arr map every elements pronounce ["four handred","three thousand","twenty-"]
+            //arr.reduceRight() => " twenty-three thousand four handred"
+            let message = arr.map((x, i) => pronounce(x, i)).reduceRight((a, b) => a + b);
+            console.log(message + tensStr);
+        }
+    }
+    printDigitName(5);
+    printDigitName(25);
+    printDigitName(425);
+    printDigitName(9425);
+    printDigitName(79425);
+    printDigitName(179425);
+
+    //Ervand
+    // ----------Ex 13 -----------
+    /**
+     Write a function, which will receive a number
+     between 0 to 999,999  and spell out that number in English.
+     **/
+    let a = ['', 'one ', 'two ', 'three ', 'four ', 'five ', 'six ',
+        'seven ', 'eight ', 'nine ', 'ten ',  'eleven ', 'twelve ',
+        'thirteen ', 'fourteen ', 'fifteen ', 'sixteen ', 'seventeen ',
+        'eighteen ', 'nineteen '];
+    let b = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty',
+        'seventy', 'eighty', 'ninety'];
+    function numToWords(num) {
+        if ((num = num.toString()).length > 6) return 'Too long';
+        num = num.toString();
+        let str = '';
+        n = num.match(/^(\d{1})(\d{2})(\d{1})(\d{2})$/);
+        if (!n) return;
+        str += (n[1] !== 0) ? (a[+(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'hundred ' : '';
+        str += (n[2] !== 0) ? (a[+(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'thousand ' : '';
+        str += (n[3] !== 0) ? (a[+(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'hundred ' : '';
+        str += (n[4] !== 0) ? (a[+(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + '' : '';
+        return str;
+    }
+    console.log(numToWords(179425));
+    //ex14
+    console.log("__________________________________14_______________________________");
+    function subset(arr, n) {
+        if (arr.length < n){
+            console.log(arr)
+        } else {
+            let newArr = [];
+            for (let i = 0; i < Math.pow(2, arr.length); i++) {
+                let result = [];
+                for (let j = arr.length - 1; j >= 0; j--) {
+                    //i=0 2-ական համակ. բազմապատկած 2-ական համակ. 1 շեղած j=2-ով
+                    if ((i & (1 << j)) !== 0) {
+                        result.push(arr[j]);
+                    }
+                }
+                if (result.length === n) {
+                    newArr.push(result);
+                }
+            }
+            console.log(newArr);
+        }
+    }
+    subset([4],3);
+    subset([19, 6],3);
+    subset([1, 2, 3], 2);     //additional
+    subset([5, 9, 23, 0, -2, -1],3);
+
+
+    //ex15
+    console.log("__________________________________15_______________________________");
+    function negativSum(arr) {
+        for (let i=0;i<arr.length;i++) {
+            if(!Array.isArray(arr[i])) {
+                console.log("Invalid Argument");
+                return;
+            }
+            arr[i] = arr[i].filter(x => x < 0);
+            arr[i].length !== 0 ? arr[i] = Math.max(...arr[i]): arr[i]=1;
+        }
+        if (new Set(arr).size===1){
+            console.log("No negatives")
+        }else{
+            arr = arr.reduce((a, b) => a * b);
+            console.log(arr)
+        }
+    }
+    negativSum([[2, -9, -3, 0], [1, 2], [-4 , -11, 0]]);
+    negativSum([[3, 4], [11, 0], [5, 6, 7, 8]]);
+    negativSum([1, 2, 3]);
+
+    //ex15 another way
+    function negativSum(arr) {
+        if (arr.some(y => !Array.isArray(y))) {
+            console.log("Invalid Argument");
+            return;
+        }
+        let biggestNegatives = arr.map(x => x.filter(y => y < 0)).filter(k=> k.length > 0).map(z => Math.max(...z));
+        console.log( biggestNegatives.length === 0 ? "No negatives" : biggestNegatives.reduce((a, b) => a * b))
+    }
+    negativSum([[2, -9, -3, 0], [1, 2], [-4 , -11, 0]]);
+    negativSum([[3, 4], [11, 0], [5, 6, 7, 8]]);
+    negativSum([1, 2, 3]);
+
+</script>
+</body>
+</html>

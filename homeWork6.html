@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("_____________ex1_______________");
+    function convertTime1(time) {
+        let am_pm = time.slice(8, 10);
+        time = time.slice(0, 8).split(":");
+        time[0] = am_pm === "AM" ? time[0] % 12 :  time[0] % 12 + 12;
+        time[0] = time[0] < 10 ? "0" +time[0] : time[0];
+        return time.join(":")
+    }
+    console.log(convertTime1("07:05:45PM"));
+    console.log(convertTime1("12:40:22AM"));
+    console.log(convertTime1("12:45:54PM"));
+
+    console.log("_____________ex1_______________");
+    function convertTime1(time) {
+        let am_pm = time.slice(8,10);
+        time = time.slice(0, 8).split(":");
+        am_pm === "AM" && time[0] === "12" ? time[0] = "00" :
+        am_pm === "PM" && 1 < time[0] && time[0] < 11 ? time[0] = +time[0]+12 : time[0];
+        return time.join(":")
+    }
+    console.log(convertTime1("07:05:45PM"));
+    console.log(convertTime1("12:40:22AM"));
+    console.log(convertTime1("12:45:54PM"));
+
+    console.log("_____________ex1_______________");
+    function convertTime(time) {
+        let am_pm = time.slice(8,10);
+        time = time.slice(0, 8).split(":");
+        time[0]==="12" && am_pm === "AM" ? time[0] = "00" :
+            time[0]==="12" && am_pm === "PM" ? time[0] = "12"
+                : time[0] = +time[0]+12;
+        return time.join(":")
+    }
+    console.log(convertTime("07:05:45PM"));
+    console.log(convertTime("12:40:22AM"));
+    console.log(convertTime("12:45:54PM"));
+
+    console.log("_____________ex2_______________");
+    function longestStreak(arr) {
+        arr = arr.map(x => new Date(x.date).getDate()) ; //(6) [18, 19, 20, 26, 27, 30]
+        let newArr=[], sum=0;
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i + 1] - arr[i] === 1){
+                sum++;
+            }else{
+                newArr.push(sum + 1);
+                sum = 0;
+            }
+        }
+        return newArr.length > 0 ? Math.max(...newArr) : 0;
+    }
+    console.log( longestStreak([
+        {    "date": "2019-09-18"  },
+        {    "date": "2019-09-19"  },
+        {    "date": "2019-09-20"  },
+        {    "date": "2019-09-26"  },
+        {    "date": "2019-09-27"  },
+        {    "date": "2019-09-30"  }
+    ]));
+
+    console.log("_____________ex2_______________");
+    function longestStreak1(arr){
+        arr = arr.map(x => new Date(x.date).getTime()) ;
+        longCount(arr, count = 0, newArr = []);
+        return newArr.length > 0 ? Math.max(...newArr) : 0;
+    }
+    function longCount(arr, count, newArr){
+        if (arr.length <= 1) {
+            return newArr.push(count + 1)
+        }
+        if(arr[1] - arr[0] === 86400000){
+            count ++;
+            longCount(arr.slice(1), count, newArr)
+        }else {
+            newArr.push(count + 1);
+            longCount(arr.slice(1), count = 0, newArr)
+        }
+    }
+    console.log( longestStreak1([
+        {    "date": "2019-09-18"  },
+        {    "date": "2019-09-19"  },
+        {    "date": "2019-09-20"  },
+        {    "date": "2019-09-26"  },
+        {    "date": "2019-09-27"  },
+        {    "date": "2019-09-30"  },
+        {    "date": "2019-09-31"  },
+        {    "date": "2019-09-01"  },
+        {    "date": "2019-09-02"  },
+        {    "date": "2019-09-03"  },
+        {    "date": "2019-09-04"  },
+        {    "date": "2019-09-05"  },
+        {    "date": "2019-09-06"  },
+        {    "date": "2019-09-07"  },
+    ]));
+
+    console.log("_____________ex3_______________");
+    function canCapture1(arr){
+        let letter = ["A", "B", "C", "D", "E", "F", "G", "H"];
+        return (Math.abs(letter.indexOf(arr[0][0]) - letter.indexOf(arr[1][0]))
+            === Math.abs(+arr[0][1] - +arr[1][1])) ?
+            true : arr[0][0] === arr[1][0] ?
+                true : arr[0][1] === arr[1][1]
+    }
+    console.log(canCapture1(["A1", "H8"]));//true
+    console.log(canCapture1(["A1", "C2"]));//false
+    console.log(canCapture1(["G3", "E5"]));//true
+    console.log(canCapture1(["G3", "E3"]));//true
+
+    console.log("_____________ex3_______________");
+    function canCapture(arr){
+        let letter = ["A", "B", "C", "D", "E", "F", "G", "H"];
+        let number = [1, 2, 3, 4, 5, 6, 7, 8];
+        if(Math.abs(letter.indexOf(arr[0][0]) - letter.indexOf(arr[1][0])) ===
+            Math.abs(number.indexOf(+arr[0][1]) - number.indexOf(+arr[1][1]))){
+            return true
+        } else if(arr[0][0] === arr[1][0]){
+            return true
+        } else if(arr[0][1] === arr[1][1]) {
+            return true
+        } else {
+            return false
+        }
+    }
+    console.log(canCapture(["A1", "H8"]));//true
+    console.log(canCapture(["A1", "C2"]));//false
+    console.log(canCapture(["G3", "E5"]));//true
+    console.log(canCapture(["G3", "E3"]));//true
+
+    console.log("_____________ex4_______________");
+    //Bubble Sort
+    function numberOfSwaps(arr) {
+        let swapCount=0;
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr.length-i-1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    let temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapCount++
+                }
+            }
+        }
+        return swapCount;
+    }
+    console.log(numberOfSwaps([5, 4, 3]));
+    console.log(numberOfSwaps([1, 3, 4, 5]));
+    console.log(numberOfSwaps([5, 4, 3, 2]));
+    
+    console.log("_____________ex5_______________");
+    function smallestTransform(num){
+        let sum = 0;
+        let arr = [...num.toString()].sort((a, b) => a - b);        //(3) ["1", "3", "5"]
+        let tiv = arr[Math.floor(arr.length / 2)];                  //"3"
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] < tiv) {
+                sum += tiv - arr[i]
+            } else {
+                sum += arr[i] - tiv
+            }
+        }
+        return sum
+    }
+    console.log(smallestTransform(1189));
+    console.log(smallestTransform(1234));
+    console.log(smallestTransform(153));
+    console.log(smallestTransform(33338));
+    console.log(smallestTransform(7777));
+
+    console.log("_____________ex5_______________");
+    function smallestTransform1(num){
+        let sum = 0;
+        if(new Set([...num.toString()]).size === 1){
+            return sum
+        } else {
+            let arr = [...num.toString()].sort((a, b) => a - b);        //(3) ["1", "3", "5"]
+            let tiv = arr[Math.floor(arr.length / 2)];                  //"3"
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] < tiv) {
+                    sum += tiv - arr[i]
+                } else {
+                    sum += arr[i] - tiv
+                }
+            }
+        }
+        return sum
+    }
+    console.log(smallestTransform1(399));
+    console.log(smallestTransform1(1234));
+    console.log(smallestTransform1(153));
+    console.log(smallestTransform1(33338));
+    console.log(smallestTransform1(7777));
+
+
+</script>
+</body>
+</html>

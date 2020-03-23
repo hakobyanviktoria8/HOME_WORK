@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function largSubString(str) {
+        str=str.split("");
+        let newArr=[],lengthSubStr=[];
+        for (let i=0;i<str.length;i++){
+            if (!newArr.includes(str[i]) || str[i]===" ") {
+                newArr.push(str[i])
+            } else {
+                lengthSubStr.push(newArr);
+                i = str.slice(0,i).lastIndexOf(str[i]);
+                newArr =[];
+            }
+        }
+        let length = lengthSubStr.map(x=>x.filter(y=>y!==" ").length);
+        // console.log(length);
+        let max=length.indexOf(Math.max(...length));
+        let x=lengthSubStr[max];
+        console.log(x.join(""))
+    }
+    largSubString('there are no two words in the english language more harmful than "good job".');  //rmful than "go
+    largSubString('parting your soup is not a miracle, bruce.'); //parting you տրվածը սխալ է [10, 9, 4, 6, 6, 9, 8, 9, 8, 7]
+
+</script>
+
+</body>
+</html>

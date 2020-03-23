@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //ex1
+    console.log("__________________________1______________________________");
+    let volumeOfBox = obj => console.log(Object.values(obj).reduce((a,b)=>a*b));
+
+    volumeOfBox({ width: 2, length: 5, height: 1 });
+    volumeOfBox({ width: 4, length: 2, height: 2 });
+    volumeOfBox({ width: 2, length: 3, height: 5 });
+
+    //ex2
+    console.log("__________________________2______________________________");
+    let objectToArray = obj => console.log(Object.entries(obj));
+
+    objectToArray({D: 1,B: 2,C: 3});
+    objectToArray({likes: 2,dislikes: 3,followers: 10});
+
+    //ex3
+    console.log("__________________________3______________________________");
+    let freeShipping = obj => console.log(Object.values(obj).reduce((a,b)=>+a + (+b)) > 50);
+    freeShipping({ "Shampoo": 5.99, "Rubber Ducks": 15.99 });
+    freeShipping({ "Flatscreen TV": 399.99 });
+    freeShipping({ "Monopoly": 11.99, "Secret Hitler": 35.99, "Bananagrams": 13.99 });
+
+    //ex4
+    console.log("__________________________4______________________________");
+    let getNextPosition = (obj1, obj2, dist) =>{
+        let nerqn = Math.hypot(obj2.x-obj1.x,obj2.y-obj1.y).toFixed();
+        let x = obj1.x + +((obj2.x-obj1.x) * dist / nerqn).toFixed();
+        let y = obj1.y + +((obj2.y-obj1.y) * dist / nerqn).toFixed();
+        console.log("{x: " + x,", y: " + y+"}")
+    };
+    // getNextPosition({x: 50, y: 60}, {x: 100, y: 100}, 10);
+    // getNextPosition({x: 0, y: 0}, {x: 100, y: 0}, 10);
+    // getNextPosition({x: 0, y: 0}, {x: 100, y: 100}, 10);
+    getNextPosition({x: 250, y: 10}, {x: -20, y: 35}, 55);
+
+//    ex5
+    console.log("__________________________5.1______________________________");
+    function f(obj) {
+        let obj1={};
+        for (let key in obj){                //obj[key] = 1,2,2
+            if (obj[key] in obj1){           //եթե տվյալ հտկ կա ->true
+                if (Array.isArray(obj1[obj[key]])){
+                    obj1[obj[key]].push(key);
+                } else {
+                    obj1[obj[key]]= [obj1[obj[key]], key];
+                }
+            } else {
+                obj1[obj[key]] = key;
+            }
+        }console.log(obj1)
+    }
+    f({ a: '1', b: "2",c:"2",d:"2" });
+    f({k:1 ,a:2,b:2,c:3, d:5, f:"1", g:"gt", m:"gt", l:2 ,});
+
+    console.log("__________________________5.2______________________________");
+
+    function f5(obj) {
+        result = Object.entries(obj).map(a => a.reverse()).reduce((arr, x) => addelem(arr, x[0], x[1]), []);
+        console.log(Object.fromEntries(result));
+
+        function addelem(arr, key, value) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i][0] === key) {
+                    if (Array.isArray(arr [i][1])) {
+                        arr[i][1].push(value);
+                    } else {
+                        arr[i][1] = [arr[i][1], value];
+                    }
+                    return arr;
+                }
+            }
+            // if not found
+            arr.push([key, value]);
+            return arr;
+        }
+    }
+    f5({a: '1', b: '2', c: '2', d: '2'});
+
+    //    ex6
+    console.log("__________________________6______________________________");
+    function f6(arr) {
+        arr=arr.filter(x=>x.readStatus).map(x=>x.percent).sort((a,b)=>a-b);
+        console.log(arr)
+    }
+    f6([{ book: "Catcher in the Rye", readStatus: true, percent: 40},
+        { book: "Animal Farm", readStatus: true, percent: 20},
+        { book: "Solaris", readStatus: false, percent: 90 },
+        { book: "The Fall", readStatus: true, percent: 50 },
+        { book: "White Nights", readStatus: false, percent: 60 } ,
+        { book: "After Dark", readStatus: true, percent: 70 }]);
+
+    //    ex7
+    console.log("__________________________7_____________________________");
+    function f7(obj1,obj2) {
+        // console.log(JSON.stringify(obj1)===JSON.stringify(obj2))
+        key1=Object.keys(obj1);
+        key2=Object.keys(obj2);
+        val1=Object.values(obj1);
+        val2=Object.values(obj2);
+        let check = new Set( key1.map((x,i)=>x===key2[i]) && val1.map((x,i)=>x===val2[i])).size===1? true: false;
+        console.log(check)
+    }
+    f7({a:1,b:2,c:3},{a:1,b:2,c:4});
+    f7({a:1},{a:1});
+
+    //ex8
+    console.log("__________________________8______________________________");
+    function countAll(str) {
+        str = {"LETTERS": str.match(/[a-z]/gi)===null? 0 : str.match(/[a-z]/gi).length,
+            "DIGITS": str.match(/\d/g)===null? 0 : str.match(/\d/g).length};
+        console.log(str)
+    }
+    countAll("H3ll0 Wor1d");
+    countAll("Hello World");
+</script>
+</body>
+</html>

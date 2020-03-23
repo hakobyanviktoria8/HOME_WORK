@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("___________HomeWork 1 ex9____________");
+    //ex9
+    function print(row,call) {
+        let arr = [];
+        for (let i = 0;i < row; i++){
+            for (let j = 0; j < call; j++){
+                if (j === call-1){
+                    arr.push("*\n");
+                } else if (i === 0 || j === 0 || i === row - 1){
+                    arr.push("*");
+                } else {
+                    arr.push(" ");
+                }
+            }
+        }
+        console.log(arr.join(""))
+    }
+    print(5,5);
+    print(10,15);
+
+    console.log("___________HomeWork 1 ex10____________");
+    //ex10 parz tarberak
+    let arr = [];
+    for(let i = 1; i <= 5; i++){
+        let elem = i;
+        for(let j = 1; j <= i; j++){
+            arr.push(elem);
+            elem += 5-j;
+        }
+        console.log(arr.join(" "));
+        arr=[];
+    }
+
+    //while-ov
+    function printNum() {
+        for (let i = 1; i <= 5; i++){
+            let arr = [];
+            let num = 1;
+            let t = i;
+            let k = 4;
+            while(num <= i) {
+                arr.push(t);
+                t += k;
+                k--;
+                num++;
+            }
+            console.log(arr.join(" "));
+        }
+    }
+
+    printNum();
+
+    //write number 1 |12|123|1234|.....|12|1
+    function printOneToFive(num) {
+        let arr = [];
+
+        for(let i = 1; i <= num; i++) {
+            arr.push(i);
+            console.log(arr.join(''));
+        }
+
+        for(let i = num-1; i > 0; i--) {
+            arr.pop();
+            console.log(arr.join(''));
+        }
+    }
+    printOneToFive(5);            //1|12|123|1234|12345|1234|123|12|1
+    printOneToFive(10);
+
+console.log("_______Chistmas Tree _______");
+    //chistmas Tree 1| 121| 12321....
+    function chistmasTree(num) {
+        let arr = [];
+        for(let i = 1; i < num; i++) {
+            //left part until i   i| 1i| 12i|....
+            for (let k = 1; k < i; k++){
+                arr.push(k)
+            }
+            // add i   i=1 | 1 i=2 | 12 i=3|....
+            arr.push(i);
+
+            for (let j = i - 1; j > 0; j--){
+                //after i  i=1 | 1 i=2 1 | 12 i=3 21|....
+                arr.push(j)
+            }
+            let whiteSpace = " ";
+            console.log(whiteSpace.repeat(num-i)+arr.join(''));
+            arr=[];
+        }
+    }
+    console.log("         *");
+    chistmasTree(10);
+    chistmasTree(5);
+
+
+</script>
+
+</body>
+</html>
